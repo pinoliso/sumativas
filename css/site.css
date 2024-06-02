@@ -1,0 +1,79 @@
+:root {
+    --color-primario: #2980b9;
+    --color-secundario: #2a3b45;
+    --color-terciario: #f0f0f0;
+    --color-fondo: #f0f0f0;
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: #333;
+}
+.navbar {
+    background-color: var(--color-secundario);
+}
+.navbar-brand {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 600;
+}
+.navbar-brand > svg {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 600;
+    fill: #fff;
+}
+.navbar-brand:hover{
+    color: #e74c3c;
+}
+.navbar-brand:hover > .logo > svg {
+    fill: #e74c3c;
+}
+.logo > svg {
+    position:relative;
+    top: -3px;
+}
+.logo svg{
+    fill: #fff;
+    animation: rotate 5s linear infinite;
+    transform-origin: 40%;
+    transform: rotate(-10deg);
+}
+@keyframes rotate {
+    0% {
+        transform: scaleX(1) rotate(-10deg);
+    }
+    5% {
+        transform: scaleX(0) rotate(-10deg);
+    }
+    10% {
+        transform: scaleX(1) rotate(-10deg);
+    }
+}
+.nav-link {
+    color: #fff;
+}
+.nav-link:hover {
+    color: #e74c3c;
+}
+.card-header {
+    background-color: #2980b9;
+    color: #fff;
+}
+.card {
+    border: 2px solid var(--color-secundario);
+}
+.card-body {
+    background-color: #fff;
+}
+.btn-primary {
+    background-color: #e74c3c;
+    border-color: #e74c3c;
+}
+.btn-primary:hover {
+    background-color: #c0392b;
+    border-color: #c0392b;
+}
+.container {
+    max-width: 960px;
+}
