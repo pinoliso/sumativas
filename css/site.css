@@ -53,7 +53,15 @@ body {
 .nav-link {
     color: #fff;
 }
+.nav-link svg {
+    fill: #fff;
+    position:relative;
+    top: -2px;
+}
 .nav-link:hover {
+    color: #e74c3c;
+}
+.nav-link svg {
     color: #e74c3c;
 }
 .card-header {
@@ -99,4 +107,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.navbar-text {
+    color: #fff;
 }
