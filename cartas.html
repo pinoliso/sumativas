@@ -36,8 +36,14 @@
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item d-none" id="menulogin">
                         <a class="nav-link" href="login.html">Iniciar Sesión</a>
+                    </li>
+                    <li class="nav-item d-none" id="menuaccount">
+                        <a class="nav-link" href="account.html">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="transform: ;msFilter:;"><path d="M12 2C6.579 2 2 6.579 2 12s4.579 10 10 10 10-4.579 10-10S17.421 2 12 2zm0 5c1.727 0 3 1.272 3 3s-1.273 3-3 3c-1.726 0-3-1.272-3-3s1.274-3 3-3zm-5.106 9.772c.897-1.32 2.393-2.2 4.106-2.2h2c1.714 0 3.209.88 4.106 2.2C15.828 18.14 14.015 19 12 19s-3.828-.86-5.106-2.228z"></path></svg>
+                            <span class="saldo">$25.500</span>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -46,30 +52,45 @@
 
     <!-- Main Content -->
     <div class="container my-5">
+        <h1 class="mb-4">Juegos de Cartas</h1>
         <div class="row">
-            <div class="col-md-6 mb-4">
-                <div class="welcome-text">
-                    <h2>Bienvenido a Rucasino</h2>
-                    <img src="assets/welcome.webp" alt="Bienvenida a Rucasino" class="welcome-image">
-                    <p class="text-justify">Disfruta de la mejor experiencia de juego en línea. Únete a nosotros y vive la emoción de ganar en nuestros juegos de cartas y juegos de azar. ¡Empieza ahora y lleva tus habilidades al siguiente nivel!</p>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="assets/pocker.webp" class="card-img-top" alt="Poker">
+                    <div class="card-header">Poker</div>
+                    <div class="card-body">
+                        <p>Disfruta del clásico juego de poker. Apuesta, farolea y gana grandes premios.</p>
+                        <a href="#" class="btn btn-primary alinear-border w-100" juego="1">
+                            <span>$ 1.200</span>
+                            <span>JUGAR</span>
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6 mb-4">
-                <div class="login-form">
-                    <h2>Iniciar Sesión</h2>
-                    <form>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="email" placeholder="nombre@ejemplo.com">
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="password" placeholder="Contraseña">
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Ingresar</button>
-                    </form>
-                    <h2 class="mt-4">No tienes cuenta?</h2>
-                    <button type="submit" class="btn btn-primary w-100" onclick="document.location.href='register.html'">Registrate</button>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="assets/blackjack.webp" class="card-img-top" alt="Blackjack">
+                    <div class="card-header">Blackjack</div>
+                    <div class="card-body">
+                        <p>Intenta llegar a 21 en este emocionante juego de cartas. ¡Buena suerte!</p>
+                        <a href="#" class="btn btn-primary alinear-border w-100" juego="2">
+                            <span >$ 1.000</span>
+                            <span>JUGAR</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="assets/baccarat.webp" class="card-img-top" alt="Baccarat">
+                    <div class="card-header">Baccarat</div>
+                    <div class="card-body">
+                        <p>Prueba tu suerte y habilidades en el elegante juego de Baccarat. ¡Adelante!</p>
+                        <a href="#" class="btn btn-primary alinear-border w-100" juego="3">
+                            <span>$ 1.100</span>
+                            <span>JUGAR</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -79,6 +100,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="js/api.js"></script>
     <script src="js/site.js"></script>
-    <script src="js/login.js"></script>
+    <script src="js/cartas.js"></script>
   </body>
 </html>
