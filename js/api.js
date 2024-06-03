@@ -15,6 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // window.registrarUsuario = registrarUsuario;
-    window.iniciarSesion = iniciarSesion;
+    window.iniciarSesion = iniciarSesion
 
 })
