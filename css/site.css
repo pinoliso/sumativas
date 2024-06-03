@@ -77,3 +77,14 @@ body {
 .container {
     max-width: 960px;
 }
+
+.text-justify {
+    text-align: justify;
+}
+
+.welcome-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius:5px;
+}
