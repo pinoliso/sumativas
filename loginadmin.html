@@ -30,12 +30,14 @@
                             Juegos
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="cartas.html">Cartas</a></li>
-                            <li><a class="dropdown-item" href="azar.html">Azar</a></li>
+                            <li><a class="dropdown-item" href="#">Black Jack</a></li>
+                            <li><a class="dropdown-item" href="#">Ruleta</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
                     </li>
                     <li class="nav-item d-none" id="menulogin">
-                        <a class="nav-link" href="login.html">Iniciar Sesión</a>
+                        <a class="nav-link" href="loginadmin.html">Iniciar Sesión</a>
                     </li>
                     <li class="nav-item d-none" id="menuaccount">
                         <a class="nav-link" href="account.html">
@@ -51,36 +53,39 @@
     <!-- Main Content -->
     <div class="container my-5">
         <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <img src="assets/cartas.webp" class="card-img-top" alt="Juegos de Cartas">
-                    <div class="card-header">
-                        Juegos de Cartas
-                    </div>
-                    <div class="card-body">
-                        <p>Disfruta de nuestros emocionantes juegos de cartas como Poker, Blackjack y más.</p>
-                        <a href="cartas.html" class="btn btn-primary w-100">Explorar Juegos de Cartas</a>
-                    </div>
+            <div class="col-md-6 mb-4">
+                <div class="welcome-text">
+                    <h2>Bienvenido a Rucasino</h2>
+                    <img src="assets/welcome.webp" alt="Bienvenida a Rucasino" class="welcome-image">
+                    <p class="text-justify">Ingreso exclusivo para administradores</p>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <img src="assets/azar.webp" class="card-img-top" alt="Juegos de Azar">
-                    <div class="card-header">
-                        Juegos de Azar
-                    </div>
-                    <div class="card-body">
-                        <p>Prueba tu suerte con nuestros juegos de azar como la Ruleta, Tragamonedas y más.</p>
-                        <a href="#" class="btn btn-primary w-100">Explorar Juegos de Azar</a>
-                    </div>
+            <div class="col-md-6 mb-4">
+                <div class="login-form">
+                    <h2>Iniciar Sesión Administrador</h2>
+                    <div class="alert d-none" role="alert"></div>
+                    <form class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control" id="email" placeholder="nombre@ejemplo.com" required>
+                            <div class="invalid-feedback">Por favor, ingrese un correo electrónico válido.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
+                            <div class="invalid-feedback">Por favor, reingrese su contraseña.</div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="js/api.js"></script>
-    <script src="js/site.js"></script>
+    <script src="js/siteadmin.js"></script>
+    <script src="js/loginadmin.js"></script>
   </body>
 </html>

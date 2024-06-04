@@ -49,38 +49,33 @@
     </nav>
 
     <!-- Main Content -->
-    <div class="container my-5">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <img src="assets/cartas.webp" class="card-img-top" alt="Juegos de Cartas">
-                    <div class="card-header">
-                        Juegos de Cartas
-                    </div>
-                    <div class="card-body">
-                        <p>Disfruta de nuestros emocionantes juegos de cartas como Poker, Blackjack y más.</p>
-                        <a href="cartas.html" class="btn btn-primary w-100">Explorar Juegos de Cartas</a>
-                    </div>
+    <div class="container">
+        <div class="game-board">
+            <h2>Blackjack</h2>
+            <div id="game">
+                <div id="dealer">
+                    <h3>Crupier</h3>
+                    <div id="dealer-cards" class="d-flex"></div>
+                    <p id="dealer-score">Puntuación: 0</p>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <img src="assets/azar.webp" class="card-img-top" alt="Juegos de Azar">
-                    <div class="card-header">
-                        Juegos de Azar
-                    </div>
-                    <div class="card-body">
-                        <p>Prueba tu suerte con nuestros juegos de azar como la Ruleta, Tragamonedas y más.</p>
-                        <a href="#" class="btn btn-primary w-100">Explorar Juegos de Azar</a>
-                    </div>
+                <div id="player">
+                    <h3>Jugador</h3>
+                    <div id="player-cards" class="d-flex"></div>
+                    <p id="player-score">Puntuación: 0</p>
                 </div>
+                <div id="controls" class="mt-3">
+                    <button id="hit" class="btn btn-primary">Pedir Carta</button>
+                    <button id="stand" class="btn btn-primary">Plantarse</button>
+                </div>
+                <p id="message" class="mt-3"></p>
             </div>
         </div>
     </div>
-    
+
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="js/api.js"></script>
     <script src="js/site.js"></script>
+    <script src="js/blackjack.js"></script>
   </body>
 </html>

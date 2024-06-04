@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    const usuario = window.estaLogueado()
+    const admin = window.estaLogueadoAdmin()
 
-    if (usuario) {
+    if (admin) {
         document.getElementById("menuaccount").classList.remove("d-none")
-        document.querySelector("#menuaccount .saldo").innerText = "$" + usuario.saldo
+        document.querySelector("#menuaccount .saldo").innerText = "" + admin.email
     } else {
         document.getElementById("menulogin").classList.remove("d-none")
     }
