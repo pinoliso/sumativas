@@ -2,21 +2,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const juegos = window.getJuegos()
 
-    function jugar() {
+    document.querySelector("#juego1").addEventListener('click', () => {
+        cobrarJuego(1)
+    })
 
-        const usuario = window.estaLogueado()
+    document.querySelector("#juego2").addEventListener('click', () => {
+        cobrarJuego(2)
+    })
 
-        if (usuario) {
-            document.querySelector("[juego=1]")
+    document.querySelector("#juego3").addEventListener('click', () => {
+        cobrarJuego(3)
+    })
+
+    function cobrarJuego(idJuego) {
+        if (window.cobroJuego(idJuego)) {
+            const usuarioCargado = window.estaLogueado()
+            document.querySelector("#menuaccount .saldo").innerText = "$" + usuarioCargado.saldo
+            alert('Se ha habilitado para jugar', 'alert-success')
+            setTimeout(() => {
+                document.location.href = 'blackjack.html'
+            }, 2000)
         } else {
-            
+            alert('Hubo un problema al cargar su saldo.', 'alert-danger')
         }
     }
 
-    document.querySelectorAll("[juego]").forEach(link => {
-        link.addEventListener('click', e => {
-            console.log(e.target.getAttribute('juego'))
-        })
-    })
+    function alert(msg, type) {
+        const div = document.createElement("div");
+        div.classList.add("alert", type, "d-flex", "justify-content-between", "align-items-center");
+        div.innerHTML = `${msg} <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`;
+        document.querySelector(".alert").after(div);
+      }
 
 })
