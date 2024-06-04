@@ -23,22 +23,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Inicio</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Juegos
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="cartas.html">Cartas</a></li>
-                            <li><a class="dropdown-item" href="azar.html">Azar</a></li>
-                        </ul>
+                        <a class="nav-link" href="admin.html">Inicio</a>
                     </li>
                     <li class="nav-item d-none" id="menulogin">
-                        <a class="nav-link" href="login.html">Iniciar Sesión</a>
+                        <a class="nav-link" href="loginadmin.html">Iniciar Sesión Administrador</a>
                     </li>
                     <li class="nav-item d-none" id="menuaccount">
-                        <a class="nav-link" href="account.html">
+                        <a class="nav-link" href="#">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2C6.579 2 2 6.579 2 12s4.579 10 10 10 10-4.579 10-10S17.421 2 12 2zm0 5c1.727 0 3 1.272 3 3s-1.273 3-3 3c-1.726 0-3-1.272-3-3s1.274-3 3-3zm-5.106 9.772c.897-1.32 2.393-2.2 4.106-2.2h2c1.714 0 3.209.88 4.106 2.2C15.828 18.14 14.015 19 12 19s-3.828-.86-5.106-2.228z"></path></svg>
                             <span class="saldo">$25.500</span>
                         </a>
@@ -50,42 +41,69 @@
 
     <!-- Main Content -->
     <div class="container my-5">
+        <h1 class="mb-4">Panel de Administración</h1>
         <div class="row">
-            <div class="col-md-6 mb-4">
-                <div class="welcome-text">
-                    <h2>Bienvenido a Rucasino</h2>
-                    <img src="assets/welcome.webp" alt="Bienvenida a Rucasino" class="welcome-image">
-                    <p class="text-justify">Disfruta de la mejor experiencia de juego en línea. Únete a nosotros y vive la emoción de ganar en nuestros juegos de cartas y juegos de azar. ¡Empieza ahora y lleva tus habilidades al siguiente nivel!</p>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Estadísticas de Usuarios</div>
+                    <div class="card-body">
+                        <p>Total de Usuarios: 500</p>
+                        <p>Usuarios Activos: 300</p>
+                        <p>Usuarios Inactivos: 200</p>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6 mb-4">
-                <div class="login-form">
-                    <h2>Iniciar Sesión</h2>
-                    <div class="alert d-none" role="alert"></div>
-                    <form class="needs-validation" novalidate>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="email" placeholder="nombre@ejemplo.com" required>
-                            <div class="invalid-feedback">Por favor, ingrese un correo electrónico válido.</div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
-                            <div class="invalid-feedback">Por favor, reingrese su contraseña.</div>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Ingresar</button>
-                    </form>
-                    <h2 class="mt-4">No tienes cuenta?</h2>
-                    <button type="submit" class="btn btn-primary w-100" onclick="document.location.href='register.html'">Registrate</button>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Estadísticas de Juegos</div>
+                    <div class="card-body">
+                        <p>Total de Juegos: 50</p>
+                        <p>Juegos Populares: 10</p>
+                        <p>Juegos Recientes: 5</p>
+                    </div>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Ingresos</div>
+                    <div class="card-body">
+                        <p>Ingresos Totales: $1,000,000</p>
+                        <p>Ingresos del Mes: $50,000</p>
+                        <p>Ingresos del Día: $5,000</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Gestión de Usuarios</div>
+                    <div class="card-body">
+                        <p>Administra los usuarios registrados en la plataforma.</p>
+                        <a href="#" class="btn btn-primary w-100">Ir a Gestión de Usuarios</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Gestión de Juegos</div>
+                    <div class="card-body">
+                        <p>Administra los juegos disponibles en la plataforma.</p>
+                        <a href="#" class="btn btn-primary w-100">Ir a Gestión de Juegos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-3 p-2">
+            <button id="signout" class="btn btn-primary w-100">Cerrar Sesión</button>
         </div>
     </div>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="js/api.js"></script>
-    <script src="js/site.js"></script>
-    <script src="js/login.js"></script>
+    <script src="js/siteadmin.js"></script>
+    <script src="js/admin.js"></script>
   </body>
 </html>
