@@ -4,7 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { JsonService } from '../../services/json.service';
+import { AuthService } from '../../services/auth.service';
 import { interval, take, firstValueFrom, lastValueFrom } from 'rxjs';
+import { EventBroadcastService } from '../../services/event-boreadcast.service'
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,7 @@ import { interval, take, firstValueFrom, lastValueFrom } from 'rxjs';
   imports: [HttpClientModule, CommonModule, FormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [JsonService]
+  providers: [JsonService, AuthService, EventBroadcastService]
 })
 
 export class LoginComponent {
@@ -22,13 +24,14 @@ export class LoginComponent {
 
   users: any[] = [];
 
-  constructor(private jsonService: JsonService, private router: Router) {}
+  constructor(private authService: AuthService, private jsonService: JsonService, private router: Router, private eventBroadcastService: EventBroadcastService) {}
  
   async onSubmit() {
-    const users = await this.jsonService.getUsers()
-    const user = users.find((u: any) => u.email === this.email && u.password === this.password);
-      if (user) {
+    // const ok: boolean = await this.authService.login(this.email, this.password)
+    // const user = users.find((u: any) => u.email === this.email && u.password === this.password);
+      if (await this.authService.login(this.email, this.password)) {
         console.log('Login successful');
+        this.eventBroadcastService.broadcastEvent({ type: 'login' });
         this.loginFailed = false;
         this.router.navigate(['/index']);
       } else {

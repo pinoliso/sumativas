@@ -5,15 +5,15 @@ import { Observable, lastValueFrom } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class JsonService {
+export class JsonAdminService {
   httpOptionsUsers = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer b73e6620-4951-45e2-8d9f-ce6c9022bf4b'
+      'Authorization': 'Bearer fd5f8802-8d7b-4382-9ac4-0db8ffebac0a'
     })
   }
 
-  public jsonUrlUsers = 'https://firebasestorage.googleapis.com/v0/b/sumativas2.appspot.com/o/usuarios.json?alt=media&token=b73e6620-4951-45e2-8d9f-ce6c9022bf4b';
+  public jsonUrlUsers = 'https://firebasestorage.googleapis.com/v0/b/sumativas2.appspot.com/o/admins.json?alt=media&token=fd5f8802-8d7b-4382-9ac4-0db8ffebac0a';
 
   private lista:any;
   users: any;

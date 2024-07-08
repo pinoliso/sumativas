@@ -1,1 +1,29 @@
-<p>game works!</p>
+<div class="blackjack">
+    <h1>Blackjack</h1>
+    <div *ngIf="!gameOver">
+      <div>
+        <h2>Player's Hand ({{ playerScore }})</h2>
+        <div class="hand">
+          <div *ngFor="let card of playerHand" class="card">
+            {{ card.value }} of {{ card.suit }}
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2>Dealer's Hand ({{ dealerScore }})</h2>
+        <div class="hand">
+          <div *ngFor="let card of dealerHand" class="card">
+            {{ card.value }} of {{ card.suit }}
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <button (click)="playerHit()">Hit</button>
+        <button (click)="playerStand()">Stand</button>
+      </div>
+    </div>
+    <div *ngIf="gameOver">
+      <h2>{{ message }}</h2>
+      <button (click)="initializeGame()">Play Again</button>
+    </div>
+  </div>

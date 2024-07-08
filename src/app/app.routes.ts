@@ -5,6 +5,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { GameComponent } from './components/game/game.component';
+import { AccountComponent } from './components/account/account.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/index', pathMatch: 'full' },
@@ -13,4 +14,5 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'game/:id', component: GameComponent }, 
     { path: 'categories/:id', component: CategoriesComponent }, 
+    { path: 'account', component: AccountComponent }, 
 ];
