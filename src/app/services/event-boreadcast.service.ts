@@ -9,9 +9,9 @@ export class EventBroadcastService {
 
   triggerFunction$ = this.triggerFunctionSubject.asObservable();
 
-  triggerFunction() {
+  triggerFunction(data: any) {
     console.log('inside trigger')
-    this.triggerFunctionSubject.next();
+    this.triggerFunctionSubject.next(data); 
   }
 }
 

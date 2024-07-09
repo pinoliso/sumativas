@@ -24,11 +24,13 @@ export class AppComponent implements OnInit, OnDestroy {
 
   title: string = 'sumativas';
   isLoggedIn: boolean = false
+  user: any = {}
 
   ngOnInit() {
-    this.eventSubscription = this.eventBroadcastService.triggerFunction$.subscribe(() => {
-      console.log('in suscribeeeee')
+    this.eventSubscription = this.eventBroadcastService.triggerFunction$.subscribe((data: any) => {
+      console.log('in suscribeeeee', data)
       this.isLoggedIn = true
+      this.user = data
     });
   }
 

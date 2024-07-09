@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { HttpClientModule } from '@angular/common/http';
+import { JsonService } from '../../services/json.service';
 
 interface Card {
   suit: string;
@@ -10,9 +14,10 @@ interface Card {
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [CommonModule],
+  imports: [HttpClientModule, CommonModule],
   templateUrl: './game.component.html',
-  styleUrl: './game.component.css'
+  styleUrl: './game.component.css',
+  providers: [JsonService, AuthService]
 })
 
 export class GameComponent {
@@ -24,15 +29,30 @@ export class GameComponent {
   dealerScore: number = 0;
   gameOver: boolean = false;
   message: string = '';
+  charge: number = 1000;
 
   suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
   values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
 
-  constructor() {
+  constructor( private router: Router, private authService: AuthService) {
+    this.authService.addBalance(-this.charge);
     this.initializeGame();
   }
 
   initializeGame() {
+
+
+
+    // if (!this.authService.isLoggedIn()) {
+    //   this.router.navigate(['/login']);
+    // }
+
+    // if (this.charge > this.authService.getUser().balance) {
+    //   this.router.navigate(['/index']);
+    // }
+
+    // this.authService.addBalance(-this.charge);
+
     this.deck = this.createDeck();
     this.shuffleDeck();
     this.playerHand = [];

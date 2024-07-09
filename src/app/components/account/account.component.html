@@ -4,22 +4,22 @@
             <div class="form-section">
                 <h2>Agregar Saldo</h2>
                 <div id="alert-saldo" class="alert d-none" role="alert"></div>
-                <form id="form-saldo" class="needs-validation" novalidate>
+                <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
                     <div class="mb-3">
                         <label for="creditCard" class="form-label">Tarjeta de Crédito</label>
-                        <input type="text" class="form-control" id="creditCard" placeholder="Número de Tarjeta" required>
-                        <div class="invalid-feedback">Por favor, ingrese una tarjeta válida.</div>
+                        <input type="card" class="form-control" id="card" placeholder="123412342341234" required [(ngModel)]="card" name="card" #cardInput="ngModel">
+                        <div *ngIf="cardInput.invalid && cardInput.touched">Por favor, ingrese una tarjeta válida.</div>
                     </div>
                     <div class="mb-3">
                         <label for="amount" class="form-label">Monto</label>
-                        <select class="form-select" id="amount" required>
+                        <select class="form-select" class="form-control" id="amount" placeholder="Contraseña" required [(ngModel)]="amount" name="amount" #amountInput="ngModel"d="amount" required>
                             <option value="20000">$20,000</option>
                             <option value="50000">$50,000</option>
                             <option value="100000">$100,000</option>
                         </select>
-                        <div class="invalid-feedback">Por favor, ingrese un monto.</div>
+                        <div *ngIf="cardInput.invalid && cardInput.touched">Por favor, ingrese un monto.</div>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">Agregar Saldo</button>
+                    <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">Agregar Saldo</button>
                 </form>
             </div>
         </div>
