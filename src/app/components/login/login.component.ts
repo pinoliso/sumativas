@@ -31,7 +31,7 @@ export class LoginComponent {
     // const user = users.find((u: any) => u.email === this.email && u.password === this.password);
       if (await this.authService.login(this.email, this.password)) {
         console.log('Login successful');
-        this.eventBroadcastService.triggerFunction();
+        this.eventBroadcastService.triggerFunction(this.authService.getUser());
         this.loginFailed = false;
         this.router.navigate(['/index']);
       } else {

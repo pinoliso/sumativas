@@ -15,7 +15,7 @@ export class AuthService {
     const users = await this.jsonService.getUsers()
     const user = users.find((u: any) => u.email === email && u.password === password)
     if (user) {
-      this.currentUser = { user };
+      this.currentUser = user;
       this.saveUser();
       return true;
     }
@@ -29,6 +29,19 @@ export class AuthService {
 
   getUser(): any {
     return this.currentUser;
+  }
+
+  async addBalance(balance: number) {
+    this.currentUser.balance += balance
+    this.saveUser()
+    const users = await this.jsonService.getUsers()
+    console.log(users,'users')
+    users.forEach((user: any, index: number) => {
+      if(user.email == this.currentUser.email) {
+        users[index].balance = this.currentUser.balance
+        this.jsonService.saveJsonData(users)
+      }
+    })
   }
 
   isLoggedIn(): boolean {
