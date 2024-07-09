@@ -1,0 +1,55 @@
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="welcome-text">
+                <h2>Bienvenido a Rucasino</h2>
+                <img src="assets/register.webp" alt="Bienvenida a Rucasino" class="welcome-image card-image">
+                <p>Únete a nuestra comunidad y disfruta de la mejor experiencia de juego en línea. Regístrate ahora y comienza tu aventura con nuestros emocionantes juegos de cartas y juegos de azar.</p>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="register-form">
+                <h2>Registrarse</h2>
+                <div class="alert d-none" role="alert"></div>
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="col-4 w-100 needs-validation" novalidate>
+                    <div class="mb-3">
+                        <label for="email">Correo Electrónico</label>
+                        <input type="email" formControlName="email" class="form-control" id="email" placeholder="Introduce tu email" required [ngClass]="{ 'is-invalid': submitted && registerForm.controls['email'].errors, 'is-valid': submitted && registerForm.controls['email'].valid }">
+                        <div *ngIf="submitted && registerForm.controls['email'].errors" class="invalid-feedback">Por favor, ingrese un correo electrónico válido.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fullName" class="form-label">Nombre Completo</label>
+                        <input type="text" formControlName="name" class="form-control" id="name" placeholder="Introduce tu nombre completo" required [ngClass]="{ 'is-invalid': submitted && registerForm.controls['name'].errors, 'is-valid': submitted && registerForm.controls['name'].valid }">
+                        <div *ngIf="submitted && registerForm.controls['name'].errors" class="invalid-feedback">Por favor, ingrese su nombre completo.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" formControlName="password" class="form-control" id="pwd" placeholder="Introduce tu contraseña" required [ngClass]="{ 'is-invalid': submitted && registerForm.controls['password'].errors, 'is-valid': submitted && registerForm.controls['password'].valid }">
+                        <div *ngIf="submitted && registerForm.controls['password'].errors" class="invalid-feedback">La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un carácter especial.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Repetir Contraseña</label>
+                        <input type="password" formControlName="repeatPassword" class="form-control" id="repeat-pwd" placeholder="Repite tu contraseña" required [ngClass]="{ 'is-invalid': submitted && registerForm.controls['repeatPassword'].errors, 'is-valid': submitted && registerForm.controls['repeatPassword'].valid }">
+                        <div *ngIf="submitted && registerForm.controls['repeatPassword'].errors" class="invalid-feedback">Las contraseñas no coinciden.</div>
+                    </div>
+                    <div class="form-group form-floating mb-3">
+                        <input type="date" formControlName="birthdate" class="form-control" id="date" placeholder="Introduce tu fecha de nacimiento" required [ngClass]="{ 'is-invalid': submitted && registerForm.controls['birthdate'].errors, 'is-valid': submitted && registerForm.controls['birthdate'].valid }">
+                        <label for="date">Fecha de nacimiento</label>
+                        <div *ngIf="submitted && registerForm.controls['birthdate'].errors" class="invalid-feedback">Debes tener al menos 16 años para registrarte.</div>
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                        <label class="form-check-label" for="invalidCheck">
+                            &nbsp;Aceptar los términos y condiciones
+                        </label>
+                    </div>
+                    <div *ngIf="registerFailed" class="alert alert-danger mt-3" role="alert">
+                        {{ registerFailed }}
+                      </div>
+                    <button type="submit" class="btn btn-primary w-100">Registrarse</button>
+                    <button type="reset" class="btn btn-primary w-100 mt-3" id="form-reset">Borrar Datos</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

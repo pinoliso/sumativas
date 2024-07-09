@@ -1,0 +1,20 @@
+<div class="container my-5">
+    <h1 class="mb-4">{{ categories[id].title }}</h1>
+    <div class="alert d-none" role="alert"></div>
+    <div class="row">
+        <div class="col-md-4" *ngFor="let category of categories[id].items">
+            <div class="card">
+                <img [src]="category.img" class="card-img-top" alt="Poker">
+                <div class="card-header">{{ category.name }}</div>
+                <div class="card-body">
+                    <p>{{ category.description }}</p>
+                    <a [routerLink]="category.route" class="btn btn-primary alinear-border w-100 juego" id="juego1">
+                        <span>{{ category.price }}</span>
+                        &nbsp;
+                        <span>JUGAR</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
