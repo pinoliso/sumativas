@@ -14,7 +14,7 @@ import { EventBroadcastService } from '../../services/event-boreadcast.service'
   imports: [HttpClientModule, CommonModule, FormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [JsonService, AuthService, EventBroadcastService]
+  providers: [JsonService, AuthService]
 })
 
 export class LoginComponent {
@@ -31,7 +31,7 @@ export class LoginComponent {
     // const user = users.find((u: any) => u.email === this.email && u.password === this.password);
       if (await this.authService.login(this.email, this.password)) {
         console.log('Login successful');
-        this.eventBroadcastService.broadcastEvent({ type: 'login' });
+        this.eventBroadcastService.triggerFunction();
         this.loginFailed = false;
         this.router.navigate(['/index']);
       } else {

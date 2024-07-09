@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, ProfileComponent, CommonModule],
+  imports: [RouterOutlet, RouterLink, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   providers: [AuthService, EventBroadcastService]
@@ -19,14 +19,15 @@ export class AppComponent implements OnInit, OnDestroy {
   eventData: any;
   private eventSubscription: Subscription | null = null;
 
-  constructor(private authService: AuthService, private eventBroadcastService: EventBroadcastService) {}
+  constructor(private eventBroadcastService: EventBroadcastService) {}
 
   title: string = 'sumativas';
-  isLoggedIn: boolean = this.authService.isLoggedIn()
+  isLoggedIn: boolean = false
 
   ngOnInit() {
-    this.eventSubscription = this.eventBroadcastService.eventEmitter.subscribe((data: any) => {
-      this.isLoggedIn = this.authService.isLoggedIn()
+    this.eventSubscription = this.eventBroadcastService.triggerFunction$.subscribe(() => {
+      console.log('in suscribeeeee')
+      this.isLoggedIn = true
     });
   }
 

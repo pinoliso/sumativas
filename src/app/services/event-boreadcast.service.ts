@@ -1,14 +1,17 @@
 import { Injectable, EventEmitter } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventBroadcastService {
-  eventEmitter = new EventEmitter<any>();
+  private triggerFunctionSubject = new Subject<void>();
 
-  // Método para emitir eventos
-  broadcastEvent(data: any) {
-    this.eventEmitter.emit(data);
+  triggerFunction$ = this.triggerFunctionSubject.asObservable();
+
+  triggerFunction() {
+    console.log('inside trigger')
+    this.triggerFunctionSubject.next();
   }
 }
 
