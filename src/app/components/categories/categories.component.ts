@@ -1,17 +1,21 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { HttpClientModule } from '@angular/common/http';
+import { JsonService } from '../../services/json.service';
 
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [HttpClientModule, CommonModule, RouterLink],
   templateUrl: './categories.component.html',
-  styleUrl: './categories.component.css'
+  styleUrl: './categories.component.css',
+  providers: []
 })
 export class CategoriesComponent {
   id!: string;
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private router: Router) {}
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id')!;
@@ -20,6 +24,7 @@ export class CategoriesComponent {
 
   play(category: any) {
     
+    this.router.navigate([category.route]);
   }
 
   categories: { [key: string]: any } = {

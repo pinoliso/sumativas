@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit {
       return false;
     }
 
-    const newUser = { email, name, password, birthdate };
+    const newUser = { email, name, password, birthdate, balance: 0 };
     users.push(newUser);
     this.jsonService.saveJsonData(users);
     alert('Usuario registrado exitosamente.');
