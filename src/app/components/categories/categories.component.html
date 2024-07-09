@@ -8,7 +8,7 @@
                 <div class="card-header">{{ category.name }}</div>
                 <div class="card-body">
                     <p>{{ category.description }}</p>
-                    <a [routerLink]="category.route" class="btn btn-primary alinear-border w-100 juego" id="juego1">
+                    <a (click)="play(category)" class="btn btn-primary alinear-border w-100 juego" id="juego1">
                         <span>{{ category.price }}</span>
                         &nbsp;
                         <span>JUGAR</span>
