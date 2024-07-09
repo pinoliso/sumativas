@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { JsonService } from './json.service';
-import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class AuthService {
   private currentUser: any = null;
 
-  constructor(private jsonService: JsonService, private http: HttpClient) {
+  constructor(private jsonService: JsonService) {
     this.loadUser();
   }
 

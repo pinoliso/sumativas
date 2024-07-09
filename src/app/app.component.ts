@@ -1,18 +1,19 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
-import { ProfileComponent } from './components/profile/profile.component';
 import { AuthService } from './services/auth.service';
 import { EventBroadcastService } from './services/event-boreadcast.service'
+import { JsonService } from './services/json.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, CommonModule],
+  imports: [HttpClientModule, RouterOutlet, RouterLink, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  providers: [AuthService, EventBroadcastService]
+  providers: [JsonService]
 })
 export class AppComponent implements OnInit, OnDestroy {
 
@@ -33,6 +34,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
       this.eventSubscription?.unsubscribe();
+  }
+
+  logout() {
+    // this.authService.logout()
+
   }
 
 }
