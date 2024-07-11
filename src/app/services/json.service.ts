@@ -15,9 +15,6 @@ export class JsonService {
 
   public jsonUrlUsers = 'https://firebasestorage.googleapis.com/v0/b/sumativas2.appspot.com/o/usuarios.json?alt=media&token=b73e6620-4951-45e2-8d9f-ce6c9022bf4b';
 
-  private lista:any;
-  users: any;
-
   constructor(private http: HttpClient) {}
 
   getJsonData(): Observable<any> {

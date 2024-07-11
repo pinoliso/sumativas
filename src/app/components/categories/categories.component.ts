@@ -1,17 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
-import { JsonService } from '../../services/json.service';
 
 @Component({
   selector: 'app-categories',
   standalone: true,
   imports: [HttpClientModule, CommonModule, RouterLink],
   templateUrl: './categories.component.html',
-  styleUrl: './categories.component.css',
-  providers: []
+  styleUrl: './categories.component.css'
 })
 export class CategoriesComponent {
   id!: string;

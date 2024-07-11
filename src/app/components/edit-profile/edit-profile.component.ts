@@ -1,33 +1,30 @@
 import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { HttpClientModule } from '@angular/common/http'
-import { Router, RouterLink } from '@angular/router'
 import { AuthService } from '../../services/auth.service'
-import { Modal } from 'bootstrap'
-import { PaymentComponent } from '../payment/payment.component'
-import { EditProfileComponent } from '../edit-profile/edit-profile.component'
 
 @Component({
-  selector: 'app-account',
+  selector: 'app-edit-profile',
   standalone: true,
-  imports: [HttpClientModule, CommonModule, FormsModule, RouterLink, ReactiveFormsModule, PaymentComponent, EditProfileComponent],
-  templateUrl: './account.component.html',
-  styleUrl: './account.component.css'
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: './edit-profile.component.html',
+  styleUrl: './edit-profile.component.css'
 })
-export class AccountComponent {
+export class EditProfileComponent {
 
   amounts: Number[] = [20000, 50000, 100000]
   loginFailed: Boolean = false
   registerForm: FormGroup
   submitted = false
   registerFailed: string = ''
+  registerApproved: string = ''
 
   constructor(private authService: AuthService, private fb: FormBuilder) {
 
     this.registerForm = this.fb.group({
-      card: ['', [Validators.required, this.cardNumberValidator]],
-      amount: ['20000', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      name: ['', Validators.required],
+      birthdate: ['', Validators.required],
     });
   }
 
@@ -36,6 +33,15 @@ export class AccountComponent {
     if (this.registerForm.valid) {
       console.log('onsubmit')
       const { card, amount } = this.registerForm.value
+      const user = this.authService.getUser()
+
+      user.balance += parseInt(amount)
+      user.transaccions.push({
+        card: card,
+        amount: parseInt(amount),
+        date: new Date()
+      })
+      this.authService.setUser(user)
       // if (password !== repeatPassword) {
       //   this.registerFailed = 'Las contraseñas no coinciden.'
       //   return;
@@ -45,14 +51,6 @@ export class AccountComponent {
       //   this.registerForm.reset();
       //   this.submitted = false;
       // }
-    }
-  }
-
-  openDialog(id: string): void {
-    const dialogElement = document.getElementById(id)
-    if (dialogElement) {
-      const modal = new Modal(dialogElement)
-      modal.show()
     }
   }
 
@@ -66,7 +64,6 @@ export class AccountComponent {
       return null;
     }
 
-    // Luhn Algorithm for card number validation
     let sum = 0;
     let shouldDouble = false;
     for (let i = value.length - 1; i >= 0; i--) {
@@ -86,4 +83,5 @@ export class AccountComponent {
     }
     return null;
   }
+
 }
