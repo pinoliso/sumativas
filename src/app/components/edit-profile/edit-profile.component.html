@@ -1,0 +1,36 @@
+<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editProfileModalLabel">Dialog Title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="col-4 w-100 needs-validation" novalidate>
+                <div class="mb-3">
+                    <label for="email">Correo Electrónico</label>
+                    <input type="email" formControlName="email" class="form-control" id="email" placeholder="Introduce tu email" required [ngClass]="{ 'is-invalid': submitted && registerForm.controls['email'].errors, 'is-valid': submitted && registerForm.controls['email'].valid }">
+                    <div *ngIf="submitted && registerForm.controls['email'].errors" class="invalid-feedback">Por favor, ingrese un correo electrónico válido.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="fullName" class="form-label">Nombre Completo</label>
+                    <input type="text" formControlName="name" class="form-control" id="name" placeholder="Introduce tu nombre completo" required [ngClass]="{ 'is-invalid': submitted && registerForm.controls['name'].errors, 'is-valid': submitted && registerForm.controls['name'].valid }">
+                    <div *ngIf="submitted && registerForm.controls['name'].errors" class="invalid-feedback">Por favor, ingrese su nombre completo.</div>
+                </div>
+                <div class="form-group form-floating mb-3">
+                    <input type="date" formControlName="birthdate" class="form-control" id="date" placeholder="Introduce tu fecha de nacimiento" required [ngClass]="{ 'is-invalid': submitted && registerForm.controls['birthdate'].errors, 'is-valid': submitted && registerForm.controls['birthdate'].valid }">
+                    <label for="date">Fecha de nacimiento</label>
+                    <div *ngIf="submitted && registerForm.controls['birthdate'].errors" class="invalid-feedback">Debes tener al menos 16 años para registrarte.</div>
+                </div>
+                <div *ngIf="registerApproved" class="alert alert-success mt-3" role="alert">
+                    {{ registerApproved }}
+                </div>
+                <div *ngIf="registerFailed" class="alert alert-danger mt-3" role="alert">
+                    {{ registerFailed }}
+                  </div>
+                <button type="submit" class="btn btn-primary w-100">Actualizar Datos</button>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
