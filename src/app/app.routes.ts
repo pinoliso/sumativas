@@ -1,5 +1,7 @@
 import { Routes, Router } from '@angular/router';
 
+import { userGuard } from './guards/user.guard';
+
 import { IndexComponent } from './components/index/index.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -12,7 +14,7 @@ export const routes: Routes = [
     { path: 'index', component: IndexComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'game/:id', component: GameComponent }, 
     { path: 'categories/:id', component: CategoriesComponent }, 
-    { path: 'account', component: AccountComponent }, 
+    { path: 'account', component: AccountComponent, canActivate: [ userGuard ] }, 
+    { path: 'game/:id', component: GameComponent, canActivate: [ userGuard ] }, 
 ];

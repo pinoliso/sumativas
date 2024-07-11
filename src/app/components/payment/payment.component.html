@@ -1,0 +1,33 @@
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="paymentModalLabel">Agregar Saldo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="col-4 w-100 needs-validation" novalidate> 
+                <div class="mb-3">
+                    <label for="card" class="form-label">Tarjeta de Crédito</label>
+                    <input type="card" formControlName="card" class="form-control" id="card" placeholder="Introduce tu Tarjeta" required [ngClass]="{ 'is-invalid': submitted && registerForm.controls['card'].errors, 'is-valid': submitted && registerForm.controls['card'].valid }">
+                    <div *ngIf="submitted && registerForm.controls['card'].errors" class="invalid-feedback">Por favor, ingrese una tarjeta válida.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="amount" class="form-label">Monto</label>
+                    <select formControlName="amount" class="form-control" id="amount" required [ngClass]="{ 'is-invalid': submitted && registerForm.controls['amount'].errors, 'is-valid': submitted && registerForm.controls['amount'].valid }">
+                        <option *ngFor="let amount of amounts" [value]="amount">{{ formatCurrency(amount) }}</option>
+                    </select>                    
+                    <div *ngIf="submitted && registerForm.controls['card'].errors" class="invalid-feedback">Por favor, ingrese un monto válido.</div>
+                </div>
+                <div *ngIf="registerApproved" class="alert alert-success mt-3" role="alert">
+                    {{ registerApproved }}
+                </div>
+                <div *ngIf="registerFailed" class="alert alert-danger mt-3" role="alert">
+                    {{ registerFailed }}
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Agregar Saldo</button>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>

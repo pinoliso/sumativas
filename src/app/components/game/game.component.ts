@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
-import { JsonService } from '../../services/json.service';
 
 interface Card {
   suit: string;
@@ -16,8 +15,7 @@ interface Card {
   standalone: true,
   imports: [HttpClientModule, CommonModule],
   templateUrl: './game.component.html',
-  styleUrl: './game.component.css',
-  providers: [JsonService, AuthService]
+  styleUrl: './game.component.css'
 })
 
 export class GameComponent {
@@ -34,9 +32,9 @@ export class GameComponent {
   suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
   values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
 
-  constructor( private router: Router, private authService: AuthService) {
-    this.authService.addBalance(-this.charge);
-    this.initializeGame();
+  constructor( private router: Router) {
+    // this.authService.addBalance(-this.charge);
+    // this.initializeGame();
   }
 
   initializeGame() {

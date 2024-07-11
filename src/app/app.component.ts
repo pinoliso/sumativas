@@ -1,46 +1,40 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { AuthService } from './services/auth.service';
-import { EventBroadcastService } from './services/event-boreadcast.service'
-import { JsonService } from './services/json.service';
-import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HttpClientModule, RouterOutlet, RouterLink, CommonModule],
+  imports: [RouterOutlet, RouterLink, CommonModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
-  providers: [JsonService]
+  styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent {
 
-  eventData: any;
-  private eventSubscription: Subscription | null = null;
+  constructor(public authService: AuthService) {}
 
-  constructor(private eventBroadcastService: EventBroadcastService) {}
+  title: string = 'Rucasino'
 
-  title: string = 'sumativas';
-  isLoggedIn: boolean = false
-  user: any = {}
+  // ngOnInit() {
+  //   // this.eventSubscription = this.authService.triggerFunction$.subscribe((data: any) => {
+  //   //   console.log('in suscribeeeee', data)
+  //   //   this.isLoggedIn = true
+  //   //   this.auth = data
+  //   // });
+  //   this.authService.user$.subscribe((data: any) => {
+  //     console.log('in suscribeeeee', data)
+  //     this.isLoggedIn = !!data
+  //     this.user = data
+  //   });
+  // }
 
-  ngOnInit() {
-    this.eventSubscription = this.eventBroadcastService.triggerFunction$.subscribe((data: any) => {
-      console.log('in suscribeeeee', data)
-      this.isLoggedIn = true
-      this.user = data
-    });
-  }
-
-  ngOnDestroy() {
-      this.eventSubscription?.unsubscribe();
-  }
+  // ngOnDestroy() {
+  //   this.authService.user$.unsubscribe();
+  // }
 
   logout() {
-    // this.authService.logout()
-
+    this.authService.logout()
   }
 
 }
