@@ -15,7 +15,7 @@ export class AuthService {
   }
 
   login(email: string, password: string): any {
-    this.setUser({email:"pinoliso@gmail.com", name:"Enrique Pino", birthdate: new Date("1980-01-01"), balance: 1100.0, password: "12341234", transaccions: [], payments: []})
+    this.setUser({email:"pinoliso@gmail.com", name:"Enrique Pino", birthdate: new Date("1980-01-01"), balance: 1100.0, password: "12341234", transactions: [], payments: []})
   }
 
   isLoggedIn(): boolean {

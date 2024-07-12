@@ -56,7 +56,7 @@ export class PaymentComponent {
       //   this.submitted = false;
       // }
     }else {
-      this.registerFailed = 'Corrija los datos solicitados'
+      this.registerFailed = 'Corregir los datos solicitados'
     }
   }
 

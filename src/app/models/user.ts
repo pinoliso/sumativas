@@ -4,7 +4,7 @@ export interface User {
     name: String
     birthdate: Date
     balance: Number
-    transaccions: {
+    transactions: {
         game: String,
         description: String,
         date: Date,

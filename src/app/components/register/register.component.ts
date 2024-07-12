@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -24,15 +24,10 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       name: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      repeatPassword: ['', Validators.required],
+      password: ['', [Validators.required, this.passwordValidator]],
+      repeatPassword: ['', [Validators.required, this.repeatPasswordValidator]],
       birthdate: ['', Validators.required]
     });
-
-    // if (typeof localStorage !== 'undefined') {
-    //   const usuariosGuardados = localStorage.getItem('usuarios');
-    //   this.usuarios = usuariosGuardados ? JSON.parse(usuariosGuardados) : [];
-    // }
   }
 
   ngOnInit(): void {}
@@ -40,17 +35,17 @@ export class RegisterComponent implements OnInit {
   
 
   async registrarUsuario(email: string, name: string, password: string, birthdate: string) {
-    const users = await this.jsonService.getUsers();
-    const user = users.find((u: any) => u.email === email);
+    const users = await this.jsonService.getUsers()
+    const user = users.find((u: any) => u.email === email)
     if (user) {
-      this.registerFailed = 'El usuario ya existe.';
-      return false;
+      this.registerFailed = 'El usuario ya existe.'
+      return false
     }
 
-    const newUser = { email, name, password, birthdate, balance: 0 };
-    users.push(newUser);
-    this.jsonService.saveJsonData(users);
-    alert('Usuario registrado exitosamente.');
+    const newUser = { email, name, password, birthdate, balance: 0 }
+    users.push(newUser)
+    this.jsonService.setUsers(users)
+    alert('Usuario registrado exitosamente.')
     return true
 
     // this.jsonService.getJsonData().subscribe(users => {
@@ -90,6 +85,47 @@ export class RegisterComponent implements OnInit {
       if (registroExitoso) {
         this.registerForm.reset();
         this.submitted = false;
+      }
+    }
+  }
+
+  passwordValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value
+    if (!value) {
+      return null
+    }
+
+    const hasMinimumLength = value.length >= 8
+    const hasUpperCase = /[A-Z]/.test(value)
+    const hasLowerCase = /[a-z]/.test(value)
+    const hasDigit = /\d/.test(value)
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(value)
+
+    const isValid = hasMinimumLength && hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar
+
+    return isValid ? null : {
+      passwordStrength: {
+        hasMinimumLength,
+        hasUpperCase,
+        hasLowerCase,
+        hasDigit,
+        hasSpecialChar
+      }
+    }
+  }
+
+  repeatPasswordValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value
+    if (!value) {
+      return null
+    }
+
+    const isValid = this.registerForm.controls['password'].value == value
+    const isRepeated = isValid
+
+    return isValid ? null : {
+      passwordStrength: {
+        isRepeated
       }
     }
   }
