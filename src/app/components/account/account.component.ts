@@ -34,7 +34,7 @@ export class AccountComponent {
   }
 
   formatCurrency(value: Number): String {
-    return '$ ' + value.toLocaleString('es-ES', { minimumFractionDigits: 0 });
+    return '' + value.toLocaleString('es-ES', { minimumFractionDigits: 0 });
   }
 
 }

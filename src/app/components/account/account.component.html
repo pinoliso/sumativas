@@ -7,20 +7,20 @@
                 <app-payment></app-payment>
                 <table class="table mt-3">
                     <thead>
-                      <tr>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Tarjeta</th>
-                        <th scope="col">Monto</th>
-                      </tr>
+                        <tr>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Tarjeta</th>
+                            <th scope="col">Monto</th>
+                        </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let payment of authService.getUser().payments">
-                        <td class="text-start">{{ payment.date }}</td>
-                        <td class="text-start">{{ payment.card }}</td>
-                        <td class="text-end">{{ formatCurrency(payment.amount) }}</td>
-                      </tr>
+                        <tr *ngFor="let payment of authService.getUser().payments">
+                            <td class="text-start">{{ payment.date }}</td>
+                            <td class="text-start">{{ payment.card }}</td>
+                            <td class="text-end">{{ formatCurrency(payment.amount) }}</td>
+                        </tr>
                     </tbody>
-                  </table>
+                </table>
             </div>
         </div>
         <div class="col-md-6">
@@ -30,20 +30,20 @@
                 <app-edit-profile></app-edit-profile>
                 <table class="table mt-3">
                     <thead>
-                      <tr>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Juego</th>
-                        <th scope="col">Monto</th>
-                      </tr>
+                        <tr>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Juego</th>
+                            <th scope="col">Monto</th>
+                        </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let transaction of authService.getUser().transactions">
-                        <td class="text-start">{{ transaction.date }}</td>
-                        <td class="text-start">{{ transaction.game }}</td>
-                        <td class="text-end">{{ formatCurrency(transaction.amount) }}</td>
-                      </tr>
+                        <tr *ngFor="let transaction of authService.getUser().transactions">
+                            <td class="text-start">{{ transaction.date }}</td>
+                            <td class="text-start">{{ transaction.game }}</td>
+                            <td class="text-end">{{ formatCurrency(transaction.amount) }}</td>
+                        </tr>
                     </tbody>
-                  </table>
+                </table>
             </div>
         </div>
     </div>
