@@ -2,13 +2,21 @@ import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { AuthService } from '../../services/auth.service'
+import { JsonService } from '../../services/json.service'
+
+/**
+ * @description
+ * 
+ * Componente que contiene el juego funcional
+ */
 
 @Component({
   selector: 'app-payment',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './payment.component.html',
-  styleUrl: './payment.component.css'
+  styleUrl: './payment.component.css',
+  providers: [JsonService]
 })
 export class PaymentComponent {
   
@@ -19,7 +27,7 @@ export class PaymentComponent {
   registerFailed: string = ''
   registerApproved: string = ''
 
-  constructor(private authService: AuthService, private fb: FormBuilder) {
+  constructor(private authService: AuthService, private fb: FormBuilder, private jsonService: JsonService) {
 
     this.registerForm = this.fb.group({
       card: ['', [Validators.required, this.cardNumberValidator]],
@@ -43,6 +51,7 @@ export class PaymentComponent {
         date: new Date()
       })
       this.authService.setUser(user)
+      this.jsonService.setUser(user)
       this.registerForm.reset({card: '', amount: 20000})
       this.submitted = false
       this.registerApproved = 'Se ha realizado el pago exitosamente'
@@ -56,7 +65,7 @@ export class PaymentComponent {
       //   this.submitted = false;
       // }
     }else {
-      this.registerFailed = 'Corrija los datos solicitados'
+      this.registerFailed = 'Corregir los datos solicitados'
     }
   }
 

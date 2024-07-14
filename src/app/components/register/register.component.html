@@ -3,7 +3,7 @@
         <div class="col-md-6 mb-4">
             <div class="welcome-text">
                 <h2>Bienvenido a Rucasino</h2>
-                <img src="assets/register.webp" alt="Bienvenida a Rucasino" class="welcome-image card-image">
+                <img src="assets/register.webp" alt="Bienvenida a Rucasino" class="welcome-image img-fluid">
                 <p>Únete a nuestra comunidad y disfruta de la mejor experiencia de juego en línea. Regístrate ahora y comienza tu aventura con nuestros emocionantes juegos de cartas y juegos de azar.</p>
             </div>
         </div>
@@ -46,6 +46,10 @@
                     <div *ngIf="registerFailed" class="alert alert-danger mt-3" role="alert">
                         {{ registerFailed }}
                       </div>
+                      
+                    <div *ngIf="registerApproved" class="alert alert-success mt-3" role="alert">
+                        {{ registerApproved }}
+                    </div>
                     <button type="submit" class="btn btn-primary w-100">Registrarse</button>
                     <button type="reset" class="btn btn-primary w-100 mt-3" id="form-reset">Borrar Datos</button>
                 </form>

@@ -1,34 +1,25 @@
-<div class="container my-5">
-    <div class="row">
-        <div class="col-md-6 mb-4">
-            <div class="welcome-text">
-                <h2>Bienvenido a Rucasino</h2>
-                <img src="assets/welcome.webp" alt="Bienvenida a Rucasino" class="welcome-image card-image">
-                <p class="text-justify">Disfruta de la mejor experiencia de juego en línea. Únete a nosotros y vive la emoción de ganar en nuestros juegos de cartas y juegos de azar. ¡Empieza ahora y lleva tus habilidades al siguiente nivel!</p>
-            </div>
+<div class="modal fade" id="recoveryModal" tabindex="-1" aria-labelledby="recoveryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="recoveryModalLabel">Recuperar Contraseña</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="col-md-6 mb-4">
-            <div class="login-form">
-                <h2>Iniciar Sesión</h2>
-                <div class="alert d-none" role="alert"></div>
-                <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+        <div class="modal-body">
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="col-4 w-100 needs-validation" novalidate>
                     <div class="mb-3">
-                        <label for="email" class="form-label">Correo Electrónico</label>
-                        <input type="email" class="form-control" id="email" placeholder="nombre@ejemplo.com" required [(ngModel)]="email" name="email" #emailInput="ngModel">
-                        <div *ngIf="emailInput.invalid && emailInput.touched">Por favor, ingrese un correo electrónico válido.</div>
+                        <label for="email2" class="form-label">Correo Electrónico</label>
+                        <input type="email" formControlName="email" class="form-control" id="email2" placeholder="Introduce tu email" required [ngClass]="{ 'is-invalid': submitted && registerForm.controls['email'].errors, 'is-valid': submitted && registerForm.controls['email'].valid }">
+                        <div *ngIf="submitted && registerForm.controls['email'].errors" class="invalid-feedback">Por favor, ingrese un correo electrónico válido.</div>
                     </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" id="password" placeholder="Contraseña" required [(ngModel)]="password" name="password" #passwordInput="ngModel">
-                        <div *ngIf="passwordInput.invalid && passwordInput.touched">Por favor, reingrese su contraseña.</div>
+                    <div *ngIf="registerApproved" class="alert alert-success mt-3" role="alert">
+                        {{ registerApproved }}
                     </div>
-                    <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">Ingresar</button>
+                    <div *ngIf="registerFailed" class="alert alert-danger mt-3" role="alert">
+                        {{ registerFailed }}
+                      </div>
+                    <button type="submit" class="btn btn-primary w-100">Recuperar</button>
                 </form>
-                <div *ngIf="loginFailed" class="alert alert-danger mt-3" role="alert">
-                    Email y contraseñas inválidos.
-                  </div>
-                <h2 class="mt-4">No tienes cuenta?</h2>
-                <button type="submit" class="btn btn-primary w-100" routerLink="/register">Registrate</button>
             </div>
         </div>
     </div>

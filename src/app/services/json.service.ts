@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, lastValueFrom } from 'rxjs';
+import { Injectable } from '@angular/core'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { Observable, lastValueFrom } from 'rxjs'
+import { User } from '../models/user'
+import { Admin } from '../models/admin'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class JsonService {
   httpOptionsUsers = {
@@ -13,24 +15,75 @@ export class JsonService {
     })
   }
 
-  public jsonUrlUsers = 'https://firebasestorage.googleapis.com/v0/b/sumativas2.appspot.com/o/usuarios.json?alt=media&token=b73e6620-4951-45e2-8d9f-ce6c9022bf4b';
+  public jsonUrlUsers = 'https://firebasestorage.googleapis.com/v0/b/sumativas2.appspot.com/o/usuarios.json?alt=media&token=b73e6620-4951-45e2-8d9f-ce6c9022bf4b'
+  public jsonUrlAdmins = 'https://firebasestorage.googleapis.com/v0/b/sumativas2.appspot.com/o/admins.json?alt=media&token=fd5f8802-8d7b-4382-9ac4-0db8ffebac0a'
 
   constructor(private http: HttpClient) {}
 
-  getJsonData(): Observable<any> {
-    return this.http.get<any>(this.jsonUrlUsers) 
+  getJsonData(url: string): Observable<any> {
+    return this.http.get<any>(url) 
   }
 
-  async saveJsonData(json:any) {
-    console.log('registrando data usuarios', json);
-    return await lastValueFrom(this.http.post(this.jsonUrlUsers,json,this.httpOptionsUsers))
+  saveJsonData(json:any, url:string) {
+    console.log('registrando data', json)
+    return this.http.post(this.jsonUrlUsers,json,this.httpOptionsUsers)
   }
 
-  async getUsers() {
+  async getUsers(): Promise<any> {
     try {
-      return await lastValueFrom(this.getJsonData());
+      return await lastValueFrom(this.getJsonData(this.jsonUrlUsers))
     } catch (error) {
-      console.error('Error fetching data', error);
+      console.error('Error fetching data', error)
+    }
+  }
+
+  async setUser(user: User): Promise<any> {
+    try {
+      let users: any[] = await this.getUsers()
+      const index = users.findIndex((u: any) => u.email === user.email)
+      users[index] = user
+      await this.setUsers(users)
+      console.log('json users', users)
+      return await lastValueFrom(this.getJsonData(this.jsonUrlAdmins))
+    } catch (error) {
+      console.error('Error fetching data', error)
+    }
+  }
+
+  async setAdmin(admin: Admin): Promise<any> {
+    try {
+      let admins: any[] = await this.getAdmins()
+      const index = admins.findIndex((u: any) => u.email === admin.email)
+      admins[index] = admin
+      await this.setAdmins(admins)
+      console.log('json admins', admins)
+      return await lastValueFrom(this.getJsonData(this.jsonUrlAdmins))
+    } catch (error) {
+      console.error('Error fetching data', error)
+    }
+  }
+
+  async setUsers(users: User[]) {
+    try {
+      await lastValueFrom(this.saveJsonData(users, this.jsonUrlUsers))
+    } catch (error) {
+      console.error('Error fetching data', error)
+    }
+  }
+
+  async getAdmins(): Promise<any> {
+    try {
+      return await lastValueFrom(this.getJsonData(this.jsonUrlAdmins))
+    } catch (error) {
+      console.error('Error fetching data', error)
+    }
+  }
+
+  async setAdmins(admins: Admin[]) {
+    try {
+      await lastValueFrom(this.saveJsonData(admins, this.jsonUrlAdmins))
+    } catch (error) {
+      console.error('Error fetching data', error)
     }
   }
 }  
