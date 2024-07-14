@@ -7,6 +7,12 @@ import { AdminAuthService } from '../../services/admin.auth.service';
 import { JsonService } from '../../services/json.service';
 import { Admin } from '../../models/admin'
 
+/**
+ * @description
+ * 
+ * Componente que inicia la sesión de los administradores
+ */
+
 @Component({
   selector: 'app-login',
   standalone: true,

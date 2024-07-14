@@ -5,6 +5,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { JsonService } from '../../services/json.service';
 
+/**
+ * @description
+ * 
+ * Componente que permite recuperar la contraseña de un usuario
+ */
+
 @Component({
   selector: 'app-recovery',
   standalone: true,

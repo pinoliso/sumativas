@@ -11,6 +11,12 @@ interface Card {
   score: number;
 }
 
+/**
+ * @description
+ * 
+ * Componente que inicia el juego
+ */
+
 @Component({
   selector: 'app-game',
   standalone: true,

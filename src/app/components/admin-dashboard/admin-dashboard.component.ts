@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
 
+/**
+ * @description
+ * 
+ * Componente que contiene el dashbaord para los administradores
+ */
+
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,

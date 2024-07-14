@@ -3,6 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
+/**
+ * @description
+ * 
+ * Componente que contiene las categorías
+ */
+
 @Component({
   selector: 'app-categories',
   standalone: true,

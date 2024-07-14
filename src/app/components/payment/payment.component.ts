@@ -4,6 +4,12 @@ import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, Validators } 
 import { AuthService } from '../../services/auth.service'
 import { JsonService } from '../../services/json.service'
 
+/**
+ * @description
+ * 
+ * Componente que contiene el juego funcional
+ */
+
 @Component({
   selector: 'app-payment',
   standalone: true,

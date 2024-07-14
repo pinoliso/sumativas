@@ -7,6 +7,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { JsonService } from '../../services/json.service';
 import { User } from '../../models/user'
 
+/**
+ * @description
+ * 
+ * Componente que registra un nuevo usuario
+ */
+
 @Component({
   selector: 'app-register',
   standalone: true,

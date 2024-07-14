@@ -2,6 +2,12 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
+/**
+ * @description
+ * 
+ * Componente contenido inicial con las categorías 
+ */
+
 @Component({
   selector: 'app-index',
   standalone: true,

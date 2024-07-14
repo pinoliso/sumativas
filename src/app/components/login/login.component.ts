@@ -9,6 +9,12 @@ import { User } from '../../models/user'
 import { Modal } from 'bootstrap'
 import { RecoveryComponent } from '../recovery/recovery.component';
 
+/**
+ * @description
+ * 
+ * Componente que inicia la sesión y recupera las contraseñas
+ */
+
 @Component({
   selector: 'app-login',
   standalone: true,

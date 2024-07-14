@@ -4,6 +4,12 @@ import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, Validators, A
 import { AuthService } from '../../services/auth.service'
 import { JsonService } from '../../services/json.service'
 
+/**
+ * @description
+ * 
+ * Componente encargado de cambiar la información del usuario
+ */
+
 @Component({
   selector: 'app-edit-profile',
   standalone: true,

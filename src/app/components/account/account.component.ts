@@ -8,6 +8,12 @@ import { Modal } from 'bootstrap'
 import { PaymentComponent } from '../payment/payment.component'
 import { EditProfileComponent } from '../edit-profile/edit-profile.component'
 
+/**
+ * @description
+ * 
+ * Componente que contiene la información del usuario	y sus actividades
+ */
+
 @Component({
   selector: 'app-account',
   standalone: true,
