@@ -3,6 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
+/**
+ * @description
+ * 
+ * Componente que contiene las categorías
+ */
+
 @Component({
   selector: 'app-categories',
   standalone: true,
@@ -33,7 +39,7 @@ export class CategoriesComponent {
           name: 'Poker',
           description: 'Disfruta del clásico juego de poker. Apuesta, farolea y gana grandes premios.',
           price: '$ 1.200',
-          charge: 1200,
+          charge: 1000,
           route: './game/1'
         },
         { 
@@ -49,7 +55,7 @@ export class CategoriesComponent {
           name: 'Baccarat',
           description: 'Prueba tu suerte y habilidades en el elegante juego de Baccarat. ¡Adelante!',
           price: '$ 1.100',
-          charge: 1100,
+          charge: 1000,
           route: '../../game/3'
         }
       ]

@@ -1,17 +1,70 @@
 <div class="container my-5">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="form-section">
-                <h2>Agregar Saldo</h2>
-                <button class="btn btn-primary" (click)="openDialog('paymentModal')">Agregar Saldo</button>
-                <app-payment></app-payment>
+                <h2>Datos Personales</h2>
+                <button class="btn btn-primary" (click)="openDialog('editProfileModal')">Editar Datos</button>
+                <app-edit-profile></app-edit-profile>
+                <table class="table mt-3">
+                    <tbody>
+                        <tr>
+                            <td scope="col" width="25%">Email</td><td>{{ authService.getUser()?.email }}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" width="25%">Nombre</td><td>{{ authService.getUser()?.name }}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" width="25%">Fecha de Nacimiento</td><td>{{ authService.getUser()?.birthdate }}</td>
+                        </tr>
+                        <tr>
+                            <td scope="col" width="25%">Balance</td><td>{{ authService.getUser()?.balance }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-section">
-                <h2>Cambiar Contraseña</h2>
-                <button class="btn btn-primary" (click)="openDialog('editProfileModal')">Editar Datos</button>
-                <app-edit-profile></app-edit-profile>
+                <h2 class="block-inline">Pagos Realizados</h2>
+                <button class="btn btn-primary block-inline" (click)="openDialog('paymentModal')">Agregar Saldo</button>
+                <app-payment></app-payment>
+                <table class="table mt-3">
+                    <thead>
+                        <tr>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Tarjeta</th>
+                            <th scope="col">Monto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let payment of authService.getUser()?.payments || []">
+                            <td class="text-start">{{ payment.date }}</td>
+                            <td class="text-start">{{ payment.card }}</td>
+                            <td class="text-end">{{ formatCurrency(payment.amount) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-section">
+                <h2>Transacciones</h2>
+                <table class="table mt-3">
+                    <thead>
+                        <tr>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Juego</th>
+                            <th scope="col">Monto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let transaction of authService.getUser()?.transactions || []">
+                            <td class="text-start">{{ transaction.date }}</td>
+                            <td class="text-start">{{ transaction.description }}</td>
+                            <td class="text-end">{{ formatCurrency(transaction.amount) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

@@ -1,8 +1,0 @@
-<svg width="250" height="80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 80">
-  <rect width="250" height="80" fill="#f0f0f0"/>
-  <text x="10" y="50" fill="#2980b9" font-size="40" font-family="Arial, sans-serif" font-weight="bold">Rucasino</text>
-  <rect x="160" y="10" width="40" height="60" rx="5" ry="5" fill="#e74c3c" />
-  <text x="170" y="50" fill="white" font-size="40" font-family="Arial, sans-serif">A</text>
-  <circle cx="220" cy="40" r="20" fill="#2980b9"/>
-  <text x="213" y="47" fill="white" font-size="20" font-family="Arial, sans-serif">$</text>
-</svg>

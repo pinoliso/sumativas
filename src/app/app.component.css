@@ -52,6 +52,7 @@ body {
 }
 .nav-link {
     color: #fff;
+    cursor: pointer;
 }
 .nav-link svg {
     fill: #fff;
@@ -61,6 +62,6 @@ body {
 .nav-link:hover {
     color: #e74c3c;
 }
-.nav-link svg {
-    color: #e74c3c;
+.nav-link:hover svg {
+    fill: #e74c3c;
 }
