@@ -5,7 +5,7 @@ import { User } from '../models/user'
 import { Admin } from '../models/admin'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class JsonService {
   httpOptionsUsers = {
@@ -32,6 +32,32 @@ export class JsonService {
   async getUsers(): Promise<any> {
     try {
       return await lastValueFrom(this.getJsonData(this.jsonUrlUsers))
+    } catch (error) {
+      console.error('Error fetching data', error)
+    }
+  }
+
+  async setUser(user: User): Promise<any> {
+    try {
+      let users: any[] = await this.getUsers()
+      const index = users.findIndex((u: any) => u.email === user.email)
+      users[index] = user
+      await this.setUsers(users)
+      console.log('json users', users)
+      return await lastValueFrom(this.getJsonData(this.jsonUrlAdmins))
+    } catch (error) {
+      console.error('Error fetching data', error)
+    }
+  }
+
+  async setAdmin(admin: Admin): Promise<any> {
+    try {
+      let admins: any[] = await this.getAdmins()
+      const index = admins.findIndex((u: any) => u.email === admin.email)
+      admins[index] = admin
+      await this.setAdmins(admins)
+      console.log('json admins', admins)
+      return await lastValueFrom(this.getJsonData(this.jsonUrlAdmins))
     } catch (error) {
       console.error('Error fetching data', error)
     }

@@ -1,14 +1,16 @@
 import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms'
 import { AuthService } from '../../services/auth.service'
+import { JsonService } from '../../services/json.service'
 
 @Component({
   selector: 'app-edit-profile',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './edit-profile.component.html',
-  styleUrl: './edit-profile.component.css'
+  styleUrl: './edit-profile.component.css',
+  providers: [JsonService]
 })
 export class EditProfileComponent {
 
@@ -17,17 +19,19 @@ export class EditProfileComponent {
   registerFailed: string = ''
   registerApproved: string = ''
 
-  constructor(private authService: AuthService, private fb: FormBuilder) {
-
+  constructor(private authService: AuthService, private fb: FormBuilder, private jsonService: JsonService) {
+    const user = this.authService.getUser()
     this.registerForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      name: ['', Validators.required],
-      birthdate: ['', Validators.required],
+      email: [user?.email, [Validators.required, Validators.email]],
+      name: [user?.name, Validators.required],
+      birthdate: [user?.birthdate, [Validators.required, this.minimumAgeValidator]],
     })
   }
 
   onSubmit() {
     this.submitted = true;
+    this.registerFailed = ''
+    this.registerApproved = ''
     if (this.registerForm.valid) {
       console.log('onsubmit')
       const { email, name, birthdate } = this.registerForm.value
@@ -37,6 +41,8 @@ export class EditProfileComponent {
       user.name = name
       user.birthdate = birthdate
       this.authService.setUser(user)
+      this.jsonService.setUser(user)
+      this.registerApproved = 'Se ha actualizado el perfil exitosamente'
       // if (password !== repeatPassword) {
       //   this.registerFailed = 'Las contraseñas no coinciden.'
       //   return;
@@ -46,7 +52,22 @@ export class EditProfileComponent {
       //   this.registerForm.reset();
       //   this.submitted = false;
       // }
+    }else {
+      this.registerFailed = 'Corregir los datos solicitados'
     }
+  }
+
+  minimumAgeValidator(control: AbstractControl): ValidationErrors | null {
+    const inputDate = new Date(control.value);
+    const currentDate = new Date();
+    const minDate = new Date();
+    const minAge = 16;
+    minDate.setFullYear(currentDate.getFullYear() - minAge);
+
+    if (inputDate > minDate) {
+      return { minimumAge: { requiredAge: minAge, actualAge: inputDate } };
+    }
+    return null;
   }
 
 }

@@ -35,6 +35,9 @@
                   </div> -->
                 <h2 class="mt-4">No tienes cuenta?</h2>
                 <button type="submit" class="btn btn-primary w-100" routerLink="/register">Registrarse</button>
+                <h2 class="mt-4">Recuperar contraseña</h2>
+                <button type="submit" class="btn btn-primary w-100"  (click)="openDialog('recoveryModal')">Recuperar</button>
+                <app-recovery></app-recovery>
             </div>
         </div>
     </div>

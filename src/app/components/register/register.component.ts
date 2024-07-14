@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { JsonService } from '../../services/json.service';
+import { User } from '../../models/user'
 
 @Component({
   selector: 'app-register',
@@ -18,6 +19,7 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   usuarios: any[] = [];
   registerFailed: string = ''
+  registerApproved: string = ''
   submitted = false;
 
   constructor(private fb: FormBuilder, private jsonService: JsonService) {
@@ -25,8 +27,8 @@ export class RegisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       name: ['', Validators.required],
       password: ['', [Validators.required, this.passwordValidator]],
-      repeatPassword: ['', [Validators.required, this.repeatPasswordValidator]],
-      birthdate: ['', Validators.required]
+      repeatPassword: ['', [Validators.required, Validators.minLength(8)]],
+      birthdate: ['', [Validators.required, this.minimumAgeValidator]]
     });
   }
 
@@ -34,18 +36,17 @@ export class RegisterComponent implements OnInit {
 
   
 
-  async registrarUsuario(email: string, name: string, password: string, birthdate: string) {
-    const users = await this.jsonService.getUsers()
+  async registrarUsuario(email: string, name: string, password: string, birthdate: Date) {
+
+    let users = await this.jsonService.getUsers()
     const user = users.find((u: any) => u.email === email)
     if (user) {
       this.registerFailed = 'El usuario ya existe.'
       return false
     }
-
-    const newUser = { email, name, password, birthdate, balance: 0 }
+    const newUser: User = { email, name, password, birthdate, balance: 0, transactions: [], payments: [] }
     users.push(newUser)
-    this.jsonService.setUsers(users)
-    alert('Usuario registrado exitosamente.')
+    await this.jsonService.setUsers(users)
     return true
 
     // this.jsonService.getJsonData().subscribe(users => {
@@ -74,6 +75,7 @@ export class RegisterComponent implements OnInit {
   }
 
   async onSubmit() {
+    this.registerFailed = '';
     this.submitted = true;
     if (this.registerForm.valid) {
       const { email, name, password, repeatPassword, birthdate } = this.registerForm.value;
@@ -83,6 +85,7 @@ export class RegisterComponent implements OnInit {
       }
       const registroExitoso = await this.registrarUsuario(email, name, password, birthdate);
       if (registroExitoso) {
+        this.registerApproved = 'Se ha registrado exitosamente.'
         this.registerForm.reset();
         this.submitted = false;
       }
@@ -114,19 +117,16 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  repeatPasswordValidator(control: AbstractControl): ValidationErrors | null {
-    const value = control.value
-    if (!value) {
-      return null
-    }
+  minimumAgeValidator(control: AbstractControl): ValidationErrors | null {
+    const inputDate = new Date(control.value);
+    const currentDate = new Date();
+    const minDate = new Date();
+    const minAge = 16;
+    minDate.setFullYear(currentDate.getFullYear() - minAge);
 
-    const isValid = this.registerForm.controls['password'].value == value
-    const isRepeated = isValid
-
-    return isValid ? null : {
-      passwordStrength: {
-        isRepeated
-      }
+    if (inputDate > minDate) {
+      return { minimumAge: { requiredAge: minAge, actualAge: inputDate } };
     }
+    return null;
   }
 }

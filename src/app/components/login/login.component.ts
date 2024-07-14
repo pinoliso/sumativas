@@ -4,13 +4,18 @@ import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, Validators, A
 import { HttpClientModule } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { JsonService } from '../../services/json.service';
+import { User } from '../../models/user'
+import { Modal } from 'bootstrap'
+import { RecoveryComponent } from '../recovery/recovery.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [HttpClientModule, CommonModule, FormsModule, ReactiveFormsModule, RouterLink],
+  imports: [HttpClientModule, CommonModule, FormsModule, ReactiveFormsModule, RouterLink, RecoveryComponent],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [JsonService]
 })
 
 export class LoginComponent {
@@ -20,11 +25,19 @@ export class LoginComponent {
   registerFailed: string = ''
   registerApproved: string = ''
 
-  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder) {
+  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder, private jsonService: JsonService) {
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, this.passwordValidator]],
     })
+  }
+
+  openDialog(id: string): void {
+    const dialogElement = document.getElementById(id)
+    if (dialogElement) {
+      const modal = new Modal(dialogElement)
+      modal.show()
+    }
   }
  
   async onSubmit() {
@@ -33,21 +46,14 @@ export class LoginComponent {
     if (this.registerForm.valid) {
       console.log('onsubmit')
       const { email, password } = this.registerForm.value
-
-      this.authService.login(email, password)
-      this.router.navigate(['/index'])
+      const users = await this.jsonService.getUsers()
+      if(this.authService.login(email, password, users)) { 
+        this.registerApproved = 'Login exitoso'
+        this.router.navigate(['/index'])
+      }else {
+        this.registerFailed = 'Credenciales incorrectas'
+      }
     }
-
-    // const ok: boolean = await this.authService.login(this.email, this.password)
-    // const user = users.find((u: any) => u.email === this.email && u.password === this.password);
-      // if (await this.authService.login(this.email, this.password)) {
-      //   console.log('Login successful');
-      //   this.loginFailed = false;
-      //   this.router.navigate(['/index']);
-      // } else {
-      //   console.log('Login failed');
-      //   this.loginFailed = true;
-      // }
 
   }
 

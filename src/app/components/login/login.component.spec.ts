@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { LoginComponent } from './login.component';
 
@@ -8,7 +9,7 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LoginComponent]
+      imports: [LoginComponent, RouterTestingModule]
     })
     .compileComponents();
 
@@ -17,7 +18,19 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('Crea el componente', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('Solo el correo', () => {
+    const email = component.registerForm.controls['email'];
+    email.setValue('JGQpR@example.com');
+    expect(component.registerForm.invalid).toBeTrue();
+  });
+
+  it('Correo y contraseña', () => {
+    component.registerForm.controls['email'].setValue('JGQpR@example.com');
+    component.registerForm.controls['password'].setValue('fe23$23eEafea');
+    expect(component.registerForm.valid).toBeTrue();
   });
 });

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { JsonService } from '../../services/json.service';
 import { HttpClientModule } from '@angular/common/http';
 
 interface Card {
@@ -13,9 +14,10 @@ interface Card {
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [HttpClientModule, CommonModule],
+  imports: [CommonModule, HttpClientModule],
   templateUrl: './game.component.html',
-  styleUrl: './game.component.css'
+  styleUrl: './game.component.css',
+  providers: [JsonService],
 })
 
 export class GameComponent {
@@ -29,27 +31,44 @@ export class GameComponent {
   message: string = '';
   charge: number = 1000;
 
-  suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
-  values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+  registerFailed: string = ''
+  registerApproved: string = ''
 
-  constructor( private router: Router) {
-    // this.authService.addBalance(-this.charge);
-    // this.initializeGame();
+  suits: string[] = ['Corazones', 'Diamantes', 'Tréboles', 'Picas'];
+  values: string[] = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+
+  constructor( private router: Router, private authService: AuthService, private jsonService: JsonService) {
+    console.log('constructor');
+    this.initializeGame();
   }
 
-  initializeGame() {
+  async chargeGame(amount: number): Promise<boolean> {
+    const user = this.authService.getUser();
+    if(user.balance < this.charge) {
+      return false
+    }else {
+      user.balance += amount
+      user.transactions.push({
+        date: new Date(),
+        description: amount > 0 ? 'Cobro Juego' : 'Cargo Juego',
+        amount: amount
+      })
+      this.authService.setUser(user)
+      await this.jsonService.setUser(user)
+      this.registerApproved = amount > 0 ? 'Se ha cobrado x3 existosamente, buena suerte' : 'Se ha cargado existosamente'
+      return true
+    }
+  }
 
+  async initializeGame() {
+    this.registerFailed = ''
+    this.registerApproved = ''
 
-
-    // if (!this.authService.isLoggedIn()) {
-    //   this.router.navigate(['/login']);
-    // }
-
-    // if (this.charge > this.authService.getUser().balance) {
-    //   this.router.navigate(['/index']);
-    // }
-
-    // this.authService.addBalance(-this.charge);
+    console.log('initializeGame');
+    const validated = await this.chargeGame(-this.charge)
+    if(!validated) {
+      this.registerFailed = 'Fondos insuficientes'
+    }
 
     this.deck = this.createDeck();
     this.shuffleDeck();
@@ -132,6 +151,8 @@ export class GameComponent {
   }
 
   playerHit() {
+    this.registerFailed = ''
+    this.registerApproved = ''
     if (!this.gameOver) {
       this.dealCard(this.playerHand);
       this.calculateScores();
@@ -139,6 +160,8 @@ export class GameComponent {
   }
 
   playerStand() {
+    this.registerFailed = ''
+    this.registerApproved = ''
     if (!this.gameOver) {
       while (this.dealerScore < 17) {
         this.dealCard(this.dealerHand);
@@ -147,6 +170,7 @@ export class GameComponent {
       this.gameOver = true;
       if (this.dealerScore > 21 || this.playerScore > this.dealerScore) {
         this.message = 'Player wins!';
+        this.chargeGame(this.charge*3)
       } else if (this.playerScore < this.dealerScore) {
         this.message = 'Dealer wins!';
       } else {

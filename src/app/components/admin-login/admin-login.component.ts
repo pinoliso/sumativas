@@ -1,16 +1,19 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms'
+import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { AdminAuthService } from '../../services/admin.auth.service';
+import { JsonService } from '../../services/json.service';
+import { Admin } from '../../models/admin'
 
 @Component({
-  selector: 'app-admin-login',
+  selector: 'app-login',
   standalone: true,
   imports: [HttpClientModule, CommonModule, FormsModule, ReactiveFormsModule, RouterLink],
   templateUrl: './admin-login.component.html',
-  styleUrls: ['./admin-login.component.css']
+  styleUrls: ['./admin-login.component.css'],
+  providers: [JsonService]
 })
 
 export class AdminLoginComponent {
@@ -20,7 +23,7 @@ export class AdminLoginComponent {
   registerFailed: string = ''
   registerApproved: string = ''
 
-  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder) {
+  constructor(private adminAuthService: AdminAuthService, private router: Router, private fb: FormBuilder, private jsonService: JsonService) {
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, this.passwordValidator]],
@@ -33,21 +36,14 @@ export class AdminLoginComponent {
     if (this.registerForm.valid) {
       console.log('onsubmit')
       const { email, password } = this.registerForm.value
-
-      this.authService.login(email, password)
-      this.router.navigate(['/index'])
+      const admins = await this.jsonService.getAdmins()
+      if(this.adminAuthService.login(email, password, admins)) { 
+        this.registerApproved = 'Login exitoso'
+        this.router.navigate(['/admin-dashboard'])
+      }else {
+        this.registerFailed = 'Credenciales incorrectas'
+      }
     }
-
-    // const ok: boolean = await this.authService.login(this.email, this.password)
-    // const user = users.find((u: any) => u.email === this.email && u.password === this.password);
-      // if (await this.authService.login(this.email, this.password)) {
-      //   console.log('Login successful');
-      //   this.loginFailed = false;
-      //   this.router.navigate(['/index']);
-      // } else {
-      //   console.log('Login failed');
-      //   this.loginFailed = true;
-      // }
 
   }
 

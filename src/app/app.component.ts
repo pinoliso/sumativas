@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { AuthService } from './services/auth.service';
+import { AdminAuthService } from './services/admin.auth.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -8,11 +9,12 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [RouterOutlet, RouterLink, CommonModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  providers: [AuthService]
 })
 export class AppComponent {
 
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, public adminAuthService: AdminAuthService) {}
 
   title: string = 'Rucasino'
 
@@ -35,6 +37,7 @@ export class AppComponent {
 
   logout() {
     this.authService.logout()
+    this.adminAuthService.logout()
   }
 
 }
